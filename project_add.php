@@ -75,7 +75,7 @@ VALUES('$name', '$descript')";
   if ($conn->query($sql) === TRUE) {
       echo "<br/><span>New project record added successfully!</span><br><br>";
   } else {
-      echo "<br><span>Error while inserting project!</span><br><br>";;
+      echo "<br><span>Error while inserting project!</span><br><br>";
   }
   $conn->close();
 ?>

@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="panel-body">
-          <table class="table table-striped table-bordered table-list">
+          <table id="projectTable" class="table table-striped table-bordered table-list">
             <thead>
               <tr>
                 <th><em class="fa fa-cog"></em></th>
@@ -100,21 +100,70 @@
               $result = mysqli_query($conn, $sql)or die(mysqli_error());
               // print_r(mysqli_fetch_array($result));
 
-  
+
                 while ($row = mysqli_fetch_array($result)) {
                   echo '<tr>
                     <td align="center">
-                      <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                      <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                      <!--<a data-toggle="modal" data-target="#editModal" class="btn btn-default"><em class="fa fa-pencil"></em></a>-->
+                      <a id="' . $row['id'] .'" class="btn btn-default"><em class="fa fa-pencil"></em></a>
+                      <!--<a id="editBtn" class="btn btn-default"><em class="fa fa-pencil"></em></a>-->
+                      <a href="project_delete.php?id=' . $row['id'] . '" class="btn btn-danger"><em class="fa fa-trash"></em></a>
                     </td>
                     <td class="hidden-xs">' . $row['id'] . '</td>
-                    <td>' . $row['name'] . '</td>
-                    <td>' . $row['description'] . '</td>
+                    <!--<td id="name'. $row['id'] .'">' . $row['name'] . '</td>-->
+                    <!--<td id="desc'. $row['id'] .'">' . $row['description'] . '</td>-->
+                    <td id="name">' . $row['name'] . '</td>
+                    <td id="desc">' . $row['description'] . '</td>
                   </tr>';
 
                 }
 
               ?>
+
+              <!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h2  class="modal-title" id="modalHeader">Edit Information</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="project_edit.php" method="post">
+          <div class="row">
+            <!-- <div class="col-sm-offset-2 col-sm-2">
+              <label style="margin-top:5px; padding-left:45px;" class="control-label">ID:</label>
+            </div> -->
+            <div class="col-sm-2">
+              <input id="editId" class="form-control" name="uneditedId" type="hidden"/>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-sm-offset-2 col-sm-2">
+              <label style="margin-top:5px; padding-left:45px;" class="control-label">Name:</label>
+            </div>
+            <div class="col-sm-4">
+              <input id="editName" class="form-control" type="text" autofocus="TRUE" name="editedName" required="TRUE"/>
+            </div>
+          </div>
+            <br/>
+            <label class="control-label">Description:</label>
+            <input id="editDesc" class="form-control" type="text" name="editedDescription" required="TRUE" />
+
+        </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
 
               <!-- <tr>
                 <td align="center">
@@ -156,6 +205,21 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('a.btn-default').click(function(){
+        var id = this.id;
+        var nameText = $(this).closest('tr').children('#name').text();
+        var descText = $(this).closest('tr').children('#desc').text();
+        console.log(nameText + ", " + descText);
+        $('#editId').val(id);
+        $('#editName').val(nameText);
+        $('#editDesc').val(descText);
+         $('#editModal').modal('toggle');
+
+        });
+      });
+  </script>
 </body>
 
 </html>
