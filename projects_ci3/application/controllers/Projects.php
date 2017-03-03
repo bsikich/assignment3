@@ -12,8 +12,12 @@ class Projects extends CI_Controller
   }
 
   function addProject(){
-    $this->load->view('project_add');
+    $this->load->view('project_add.php');
   }
+
+  // function addProjectPhp(){
+  //   $this->load->view('project_add.php');
+  // }
 
   function create()
   {

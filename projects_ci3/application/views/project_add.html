@@ -39,8 +39,8 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="project_view.php">View Projects</a></li>
-              <li><a href="project_add.html">Add Project</a></li>
+              <li><a href="<?php echo base_url() ?>index.php/projects">View Projects</a></li>
+              <li><a href="<?php echo base_url() ?>index.php/projects/addProject">Add Project</a></li>
             </ul>
           </li>
           <li><a href="#">Tasks </a></li>
@@ -57,7 +57,7 @@
   <div class="row">
     <h3>Create New Project</h3>
 
-  <form role="form" action="/ci/index.php/projects/addProjectPhp" method="post">
+  <form role="form" action="addProjectPhp" method="post">
       <div class="form-group">
           <label class="control-label">Name:</label>
           <input type="text" class="form-control" name="name" placeholder="Project Name" required>
